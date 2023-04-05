@@ -1,0 +1,10 @@
+.square {
+  text-align: center;
+}
+
+.board-row {
+  display: grid;
+  grid-template-columns: [a] 33% [b] 33% [c] 33%;
+  width: 15vw;
+  aspect-ratio: 100 / 33
+}
