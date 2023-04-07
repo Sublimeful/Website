@@ -4,7 +4,7 @@ import HomePage from './pages/homepage/HomePage.js';
 
 function App() {
   return (
-    <div className='App-header'>
+    <div className='App'>
       <HomePage />
     </div>
   );
