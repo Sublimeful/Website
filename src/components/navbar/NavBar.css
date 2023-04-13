@@ -14,15 +14,22 @@
 
 .dropdown {
   display: flex;
+  z-index: 0;
 }
 
 .dropdown-content {
-  visibility: hidden;
-  top: 50px;
+  top: -150px;
   position: absolute;
   align-items: center;
   display: flex;
   flex-direction: column;
+  z-index: -1;
+  transition: top 0.3s ease-out;
+}
+
+.dropdown:hover .dropdown-content {
+  visibility: visible;
+  top: 50px;
 }
 
 .nav-links > ul {

@@ -1,16 +1,10 @@
 import "./HomePage.css"
-import NavBar from "components/navbar/NavBar.js"
 
-
-export default function HomePage() {
+export default function() {
   return (
     <div className="home-page">
-      <NavBar />
       <main>
-        {/* ... */}
       </main>
     </div>
   );
 }
-
-

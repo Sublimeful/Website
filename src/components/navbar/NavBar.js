@@ -1,28 +1,24 @@
 import "./NavBar.css"
+import PageContext from "contexts/PageContext";
+import { useContext } from "react";
 
-export default function NavBar() {
 
-  function dropdownMouseOver(el) {
-    const dropdownContent = el.querySelector(".dropdown-content");
-    dropdownContent.style.visible = true;
-    
-  }
+export default function() {
+  const { currentPage, setPage } = useContext(PageContext);
 
   return (
     <header className="navbar">
       <a href="#" className="logo">Logo</a>
       <nav className="nav-links">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li className="dropdown" onMouseEnter={dropdownMouseOver}>
-            <a href="#">My Projects</a>
+          <li><a href="#" onClick={() => setPage("HomePage")}>Home</a></li>
+          <li className="dropdown">
+            <a href="#" onClick={() => setPage("Projects")}>My Projects</a>
             <ul className="dropdown-content">
-              <li><a href="#">History</a></li>
-              <li><a href="#">Team</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="#" onClick={() => setPage("TicTacToe")}>Tic-Tac-Toe</a></li>
             </ul>
           </li>
-          <li><a href="#">About</a></li>
+          <li><a href="#" onClick={() => setPage("About")}>About</a></li>
         </ul>
       </nav>
     </header>

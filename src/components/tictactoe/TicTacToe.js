@@ -33,7 +33,7 @@ function Board({ board, handleClick, gameStatus }) {
 
 
 
-export default function Game() {
+export default function() {
   // <{{ checkWinner
   /** Given any board and a player, determine whether the player has won */
   function checkWinner(board, player) {
