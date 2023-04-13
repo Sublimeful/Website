@@ -1,12 +1,16 @@
-.square {
-  text-align: center;
-}
+.tictactoe {
+  color: white;
 
-.board {
-  .board-row {
-    display: grid;
-    grid-template-columns: [a] 33% [b] 33% [c] 33%;
-    width: 15vw;
-    aspect-ratio: 100 / 33
+  .square {
+    text-align: center;
+  }
+
+  .board {
+    .board-row {
+      display: grid;
+      grid-template-columns: [a] 33% [b] 33% [c] 33%;
+      width: 15vw;
+      aspect-ratio: 100 / 33
+    }
   }
 }

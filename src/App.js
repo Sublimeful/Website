@@ -1,7 +1,7 @@
 import classes from "./App.module.scss"
-import HomePage from 'pages/homepage/HomePage';
+import HomePage from "pages/homepage/HomePage";
+import TicTacToe from "pages/projects/tictactoe/TicTacToe";
 import PageContext from "contexts/PageContext";
-import TicTacToe from "components/tictactoe/TicTacToe";
 import NavBar from "components/navbar/NavBar";
 import { useState } from "react";
 
@@ -14,8 +14,8 @@ export default function() {
     <PageContext.Provider value={{ currentPage, setPage }}>
       <div className={classes["App"]}>
         <NavBar />
-        {
-          (() => {
+        <div className={classes["page"]}>
+          {(() => {
             switch(currentPage) {
               case "TicTacToe":
                 return <TicTacToe />
@@ -23,8 +23,8 @@ export default function() {
               default:
                 return <HomePage />
             }
-          })()
-        }
+          })()}
+        </div>
       </div>
     </PageContext.Provider>
   );

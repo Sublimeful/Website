@@ -136,9 +136,9 @@ export default function() {
   });
 
   return (
-    <>
+    <div className={classes["tictactoe"]}>
       <Board board = {currentBoard} handleClick = {handleClick} gameStatus = {gameStatus} />
       <ol>{moves}</ol>
-    </>
+    </div>
   );
 }
