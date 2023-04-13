@@ -6,15 +6,17 @@ import { useContext } from "react";
 export default function() {
   const { currentPage, setPage } = useContext(PageContext);
 
+
+  console.log(classes)
   return (
-    <header className={classes.navbar}>
-      <a href="#" className={classes.logo}>Logo</a>
-      <nav className={classes.navLinks}>
+    <header className={classes["navbar"]}>
+      <a href="#" className={classes["logo"]}>Logo</a>
+      <nav className={classes["nav-links"]}>
         <ul>
           <li><a href="#" onClick={() => setPage("HomePage")}>Home</a></li>
-          <li className={classes.dropdown}>
+          <li className={classes["dropdown"]}>
             <a href="#" onClick={() => setPage("Projects")}>My Projects</a>
-            <ul className={classes.dropdownContent}>
+            <ul className={classes["dropdown-content"]}>
               <li><a href="#" onClick={() => setPage("TicTacToe")}>Tic-Tac-Toe</a></li>
             </ul>
           </li>
