@@ -1,33 +1,33 @@
 import { useState } from 'react';
-import "./TicTacToe.css";
+import classes from "./TicTacToe.module.scss";
 
 
 function Square({ marker, clickSquare }) {
   return (
-    <button className='square' onClick={clickSquare}>{marker}</button>
+    <button className={classes["square"]} onClick={clickSquare}>{marker}</button>
   )
 }
 
 function Board({ board, handleClick, gameStatus }) {
   return (
-    <>
-      <div className='game-status'>{gameStatus}</div>
-      <div className='board-row'>
+    <div className={classes["board"]}>
+      <div className={classes["game-status"]}>{gameStatus}</div>
+      <div className={classes["board-row"]}>
         <Square marker={board[0][0]} clickSquare={() => handleClick(0, 0)} />
         <Square marker={board[0][1]} clickSquare={() => handleClick(0, 1)} />
         <Square marker={board[0][2]} clickSquare={() => handleClick(0, 2)} />
       </div>
-      <div className='board-row'>
+      <div className={classes["board-row"]}>
         <Square marker={board[1][0]} clickSquare={() => handleClick(1, 0)} />
         <Square marker={board[1][1]} clickSquare={() => handleClick(1, 1)} />
         <Square marker={board[1][2]} clickSquare={() => handleClick(1, 2)} />
       </div>
-      <div className='board-row'>
+      <div className={classes["board-row"]}>
         <Square marker={board[2][0]} clickSquare={() => handleClick(2, 0)} />
         <Square marker={board[2][1]} clickSquare={() => handleClick(2, 1)} />
         <Square marker={board[2][2]} clickSquare={() => handleClick(2, 2)} />
       </div>
-    </>
+    </div>
   )
 }
 

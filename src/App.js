@@ -1,4 +1,4 @@
-import "./App.css"
+import classes from "./App.module.scss"
 import HomePage from 'pages/homepage/HomePage';
 import PageContext from "contexts/PageContext";
 import TicTacToe from "components/tictactoe/TicTacToe";
@@ -12,7 +12,7 @@ export default function() {
 
   return (
     <PageContext.Provider value={{ currentPage, setPage }}>
-      <div className='App'>
+      <div className={classes["App"]}>
         <NavBar />
         {
           (() => {

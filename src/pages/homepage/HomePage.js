@@ -1,8 +1,8 @@
-import "./HomePage.css"
+import classes from "./HomePage.module.scss"
 
 export default function() {
   return (
-    <main className="page home">
+    <main className={classes["page"]}>
     </main>
   );
 }
