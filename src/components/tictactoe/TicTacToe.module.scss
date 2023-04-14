@@ -1,16 +1,18 @@
 .tictactoe {
   color: white;
+  width: fit-content;
 
   .square {
     text-align: center;
   }
+
 
   .board {
     .board-row {
       display: grid;
       grid-template-columns: [a] 33% [b] 33% [c] 33%;
       width: 15vw;
-      aspect-ratio: 100 / 33
+      aspect-ratio: 100 / 33;
     }
   }
 }
