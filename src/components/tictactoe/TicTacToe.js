@@ -33,7 +33,7 @@ function Board({ board, handleClick, gameStatus }) {
 
 
 
-export default function() {
+export default function TicTacToe() {
   // <{{ checkWinner
   /** Given any board and a player, determine whether the player has won */
   function checkWinner(board, player) {
@@ -92,7 +92,7 @@ export default function() {
   }
 
   function handleClick(r, c) {
-    if(currentBoard[r][c] != "") return;
+    if(currentBoard[r][c] !== "") return;
     if(gameOver) return;
 
     let boardCopy = currentBoard.map(row => [...row]);
