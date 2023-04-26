@@ -1,6 +1,0 @@
-services:
-  frontend:
-    image: website
-    build: .
-    ports:
-      - "443:3000"
