@@ -15,24 +15,16 @@
     grid-area: right-panel;
   }
 
-  .statusline {
-    position: fixed;
-    bottom: 0.5rem;
-    left: 0.5rem;
-    h1 {
-      margin: 0;
-    }
-  }
-
   .entry {
     padding: 1rem;
     display: grid;
 
     grid-template-areas:
     "title"
-    "synopsis";
+    "synopsis"
+    "content";
 
-    grid-template-rows: 4rem 15%;
+    grid-template-rows: 0.1fr 0.2fr auto;
 
 
     .anititle {
@@ -47,6 +39,11 @@
       text-overflow: ellipsis;
       overflow: auto;
       margin: 0;
+    }
+
+    .content {
+      grid-area: content;
+      display: grid;
     }
   }
 }

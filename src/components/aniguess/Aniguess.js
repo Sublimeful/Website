@@ -12,11 +12,10 @@ function AniEntry({ children, className, entry }) {
   );
 }
 
-export default function Aniguess() {
+export default function Aniguess({score, setScore}) {
   const [entries, setEntries] = useState([])
-  const [score, setScore] = useState(0)
-  const [round, setRound] = useState(0)
   const [reveal, setReveal] = useState(false)
+  const [round, setRound] = useState(0)
   const cachedEntries = useRef([])
   const finishedCaching = useRef(false)
 
@@ -34,13 +33,12 @@ export default function Aniguess() {
 
   useEffect(() => {
     async function fetchEntries() {
-      if(cachedEntries.current.length > 0) {
-        setEntries(cachedEntries.current);
-      } else if(!finishedCaching.current) {
+      if(cachedEntries.current.length === 0 && !finishedCaching.current) {
         finishedCaching.current = true;
-        setEntries([await getRandomAniEntry(), await getRandomAniEntry()]);
+        cachedEntries.current = [await getRandomAniEntry(), await getRandomAniEntry()]
       }
-      cachedEntries.current = [await getRandomAniEntry(), await getRandomAniEntry()]
+      setEntries(cachedEntries.current);
+      cachedEntries.current = [cachedEntries.current[1], await getRandomAniEntry()]
     }
     fetchEntries()
   }, [round]);
@@ -58,12 +56,15 @@ export default function Aniguess() {
       setReveal(false)
       const firstScore = parseFloat(firstEntry["score"])
       const secondScore = parseFloat(secondEntry["score"])
+      console.log(firstScore, secondScore);
       if(answer === "Higher") {
         if(firstScore <= secondScore) {
+          console.log("YES")
           setScore(score + 1);
         }
       } else {
         if(firstScore >= secondScore) {
+          console.log("YES")
           setScore(score + 1);
         }
       }
@@ -78,7 +79,7 @@ export default function Aniguess() {
     <div className={classes["aniguess"]}>
       {firstEntry ?
         <AniEntry entry={firstEntry} className={classes["left-panel"]}>
-          <h1>Ranking: {firstEntry.score}</h1>
+          <h1 className={classes["content"]}>Ranking: {firstEntry.score}</h1>
         </AniEntry>
         : null}
       {secondEntry ?
@@ -86,17 +87,14 @@ export default function Aniguess() {
           {reveal ?
             <h1>Ranking: {secondEntry.score}</h1>
             :
-            <>
+            <div className={classes["content"]}>
               <Button variant="primary" onClick={() => revealEntry("Higher")}>Higher</Button>
               <Button variant="primary" onClick={() => revealEntry("Lower")}>Lower</Button>
-            </>
+            </div>
           }
         </AniEntry>
         : null}
       
-      <div className={classes["statusline"]}>
-        <h1>Score: {score}</h1>
-      </div>
     </div>
   );
 }

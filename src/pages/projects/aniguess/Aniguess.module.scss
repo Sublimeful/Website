@@ -5,5 +5,14 @@
   display: grid;
   justify-items: center;
   align-items: center;
+
+  .statusline {
+    position: fixed;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    h1 {
+      margin: 0;
+    }
+  }
 }
 

@@ -6,6 +6,7 @@ import Game from "components/aniguess/Aniguess";
 
 export default function Aniguess() {
   const [gameStart, setGameStart] = useState(false);
+  const [score, setScore] = useState(0)
   function startGame() {
     setGameStart(true);
   }
@@ -13,7 +14,13 @@ export default function Aniguess() {
     <main className={classes["page"]}>
       {
         gameStart ?
-        <Game /> :
+        <>
+          <Game score={score} setScore={setScore}/>
+          <div className={classes["statusline"]}>
+            <h1>Score: {score}</h1>
+          </div>
+        </>
+        :
         <Button variant="secondary" onClick={startGame}>Start game!</Button>
       }
     </main>
