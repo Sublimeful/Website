@@ -3,35 +3,25 @@ import HomePage from "pages/homepage/HomePage";
 import TicTacToe from "pages/projects/tictactoe/TicTacToe";
 import Projects from "pages/projects/Projects";
 import About from "pages/about/About";
-import PageContext from "contexts/PageContext";
 import NavBar from "components/navbar/NavBar";
-import { useState } from "react";
+import Aniguess from "pages/projects/aniguess/Aniguess";
+import { Route, Routes } from "react-router-dom";
 
 
 
 export default function() {
-  const [currentPage, setPage] = useState("HomePage");
-
   return (
-    <PageContext.Provider value={{ currentPage, setPage }}>
-      <div className={classes["App"]}>
-        <NavBar />
-        <div className={classes["page"]}>
-          {(() => {
-            switch(currentPage) {
-              case "Projects":
-                return <Projects />
-              case "TicTacToe":
-                return <TicTacToe />
-              case "About":
-                return <About />
-              case "HomePage":
-              default:
-                return <HomePage />
-            }
-          })()}
-        </div>
+    <div className={classes["App"]}>
+      <NavBar />
+      <div className={classes["page"]}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/aniguess" element={<Aniguess />} />
+          <Route path="/projects/tictactoe" element={<TicTacToe />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
       </div>
-    </PageContext.Provider>
+    </div>
   );
 }

@@ -1,26 +1,22 @@
 import classes from "./NavBar.module.scss"
-import PageContext from "contexts/PageContext";
-import { useContext } from "react";
+import { NavLink } from "react-router-dom";
 
 
-export default function() {
-  const { currentPage, setPage } = useContext(PageContext);
-
-
-  console.log(classes)
+export default function NavBar() {
   return (
     <header className={classes["navbar"]}>
       <a href="#" className={classes["logo"]}>Logo</a>
       <nav className={classes["nav-links"]}>
         <ul>
-          <li><a href="#" onClick={() => setPage("HomePage")}>Home</a></li>
+          <li><NavLink to="/">Homepage</NavLink></li>
           <li className={classes["dropdown"]}>
-            <a href="#" onClick={() => setPage("Projects")}>My Projects</a>
+            <NavLink to="/projects">My Projects</NavLink>
             <ul className={classes["dropdown-content"]}>
-              <li><a href="#" onClick={() => setPage("TicTacToe")}>Tic-Tac-Toe</a></li>
+              <NavLink to="/projects/tictactoe">Tic-Tac-Toe</NavLink>
+              <NavLink to="/projects/aniguess">Aniguess</NavLink>
             </ul>
           </li>
-          <li><a href="#" onClick={() => setPage("About")}>About</a></li>
+          <li><NavLink to="/about">About</NavLink></li>
         </ul>
       </nav>
     </header>
