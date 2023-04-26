@@ -1,3 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import classes from "./App.module.scss"
 import HomePage from "pages/homepage/HomePage";
 import TicTacToe from "pages/projects/tictactoe/TicTacToe";
@@ -9,7 +11,7 @@ import { Route, Routes } from "react-router-dom";
 
 
 
-export default function() {
+export default function App() {
   return (
     <div className={classes["App"]}>
       <NavBar />

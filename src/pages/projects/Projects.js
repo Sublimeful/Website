@@ -1,6 +1,6 @@
 import classes from "./Projects.module.scss"
 
-export default function() {
+export default function Projects() {
   return (
     <main className={classes["page"]}>
       <h1>UNDER CONSTRUCTION</h1>

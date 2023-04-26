@@ -1,6 +1,6 @@
 import classes from "./About.module.scss"
 
-export default function() {
+export default function About() {
   return (
     <main className={classes["page"]}>
       <h1>ABOUT ME</h1>
