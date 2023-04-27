@@ -5,8 +5,12 @@ import classes from "./Aniguess.module.scss"
 function AniEntry({ children, className, entry }) {
   return (
     <div className={classes["entry"] + " " + className}>
-      <h1 className={classes["anititle"]}>{entry.title}</h1>
-      <p className={classes["anisynopsis"]}>{entry.synopsis}</p>
+      <div className={classes["anititle"]}>
+        <h1>{entry.title}</h1>
+      </div>
+      <div className={classes["anisynopsis"]}>
+        <p>{entry.synopsis}</p>
+      </div>
       {children}
     </div>
   );
@@ -79,15 +83,19 @@ export default function Aniguess({score, setScore}) {
     <div className={classes["aniguess"]}>
       {firstEntry ?
         <AniEntry entry={firstEntry} className={classes["left-panel"]}>
-          <h1 className={classes["content"]}>Ranking: {firstEntry.score}</h1>
+          <div className={classes["anicontent"]}>
+            <h1>Ranking: {firstEntry.score}</h1>
+          </div>
         </AniEntry>
         : null}
       {secondEntry ?
         <AniEntry entry={secondEntry} className={classes["right-panel"]}>
           {reveal ?
-            <h1>Ranking: {secondEntry.score}</h1>
+            <div className={classes["anicontent"]}>
+              <h1>Ranking: {secondEntry.score}</h1>
+            </div>
             :
-            <div className={classes["content"]}>
+            <div className={classes["anicontent"]}>
               <Button variant="primary" onClick={() => revealEntry("Higher")}>Higher</Button>
               <Button variant="primary" onClick={() => revealEntry("Lower")}>Lower</Button>
             </div>

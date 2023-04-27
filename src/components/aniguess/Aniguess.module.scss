@@ -24,24 +24,27 @@
     "synopsis"
     "content";
 
-    grid-template-rows: 0.1fr 0.2fr auto;
-
+    grid-template-rows: 10% 4rem auto;
 
     .anititle {
       grid-area: title;
-      text-overflow: ellipsis;
-      overflow-x: auto;
-      margin: 0;
+      overflow: auto;
+      h1 {
+        text-overflow: ellipsis;
+        margin: 0;
+      }
     }
 
     .anisynopsis {
       grid-area: synopsis;
-      text-overflow: ellipsis;
       overflow: auto;
-      margin: 0;
+      p {
+        text-overflow: ellipsis;
+        margin: 0;
+      }
     }
 
-    .content {
+    .anicontent {
       grid-area: content;
       display: grid;
     }
