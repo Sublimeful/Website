@@ -3,20 +3,34 @@ import { Button } from "react-bootstrap";
 import classes from "./Aniguess.module.scss"
 
 function AniEntry({ children, className, entry }) {
+  const backgroundImage = entry.images.jpg.large_image_url;
+  const trailerEmbedUrl = entry.trailer.embed_url;
+
   return (
-    <div className={classes["entry"] + " " + className}>
+    <div className={classes["entry"] + " " + className} style={{background: `linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)), url(${backgroundImage}) no-repeat`}}>
       <div className={classes["anititle"]}>
         <h1>{entry.title}</h1>
       </div>
       <div className={classes["anisynopsis"]}>
         <p>{entry.synopsis}</p>
       </div>
+      <div className={classes["anitrailer"]}>
+        {
+          trailerEmbedUrl ? 
+            <iframe
+              title="trailer"
+              src={trailerEmbedUrl}>
+            </iframe> 
+          :
+            null
+        }
+      </div>
       {children}
     </div>
   );
 }
 
-export default function Aniguess({score, setScore}) {
+export default function Aniguess({score, setScore, gameOver}) {
   const [entries, setEntries] = useState([])
   const [reveal, setReveal] = useState(false)
   const [round, setRound] = useState(0)
@@ -24,7 +38,6 @@ export default function Aniguess({score, setScore}) {
   const finishedCaching = useRef(false)
 
   async function getRandomAniEntry() {
-    console.log("OK")
     let json = {data: {}}
 
     while(!json.data["score"]) {
@@ -60,16 +73,17 @@ export default function Aniguess({score, setScore}) {
       setReveal(false)
       const firstScore = parseFloat(firstEntry["score"])
       const secondScore = parseFloat(secondEntry["score"])
-      console.log(firstScore, secondScore);
       if(answer === "Higher") {
         if(firstScore <= secondScore) {
-          console.log("YES")
           setScore(score + 1);
+        } else {
+          gameOver();
         }
       } else {
         if(firstScore >= secondScore) {
-          console.log("YES")
           setScore(score + 1);
+        } else {
+          gameOver();
         }
       }
       return setRound(round + 1)
@@ -84,22 +98,26 @@ export default function Aniguess({score, setScore}) {
       {firstEntry ?
         <AniEntry entry={firstEntry} className={classes["left-panel"]}>
           <div className={classes["anicontent"]}>
-            <h1>Ranking: {firstEntry.score}</h1>
+            <div className={classes["anirating"]}>
+              <h1>Ranking: {firstEntry.score}</h1>
+            </div>
           </div>
         </AniEntry>
         : null}
       {secondEntry ?
         <AniEntry entry={secondEntry} className={classes["right-panel"]}>
-          {reveal ?
-            <div className={classes["anicontent"]}>
-              <h1>Ranking: {secondEntry.score}</h1>
-            </div>
-            :
-            <div className={classes["anicontent"]}>
-              <Button variant="primary" onClick={() => revealEntry("Higher")}>Higher</Button>
-              <Button variant="primary" onClick={() => revealEntry("Lower")}>Lower</Button>
-            </div>
-          }
+          <div className={classes["anicontent"]}>
+            {reveal ?
+              <div className={classes["anirating"]}>
+                <h1>Ranking: {secondEntry.score}</h1>
+              </div>
+              :
+              <div className={classes["aniguess"]}>
+                <Button variant="primary" onClick={() => revealEntry("Higher")}>Higher</Button>
+                <Button variant="primary" onClick={() => revealEntry("Lower")}>Lower</Button>
+              </div>
+            }
+          </div>
         </AniEntry>
         : null}
       

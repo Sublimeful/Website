@@ -18,13 +18,17 @@
   .entry {
     padding: 1rem;
     display: grid;
+    row-gap: 1rem;
+
+    background-size: cover !important;
 
     grid-template-areas:
     "title"
     "synopsis"
+    "trailer"
     "content";
 
-    grid-template-rows: 10% 4rem auto;
+    grid-template-rows: 7% 8rem auto 1fr;
 
     .anititle {
       grid-area: title;
@@ -44,9 +48,32 @@
       }
     }
 
+    .anitrailer {
+      grid-area: trailer;
+      display: grid;
+      align-items: center;
+      justify-items: center;
+      height: fit-content;
+      iframe {
+        width: 75%;
+        aspect-ratio: 16 / 9;
+      }
+    }
+
     .anicontent {
       grid-area: content;
       display: grid;
+      justify-items: center;
+
+      .aniguess {
+        display: flex;
+        width: 75%;
+        flex-direction: column;
+        row-gap: 1rem;
+        button {
+          flex-grow: 1;
+        }
+      }
     }
   }
 }
