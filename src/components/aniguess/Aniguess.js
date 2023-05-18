@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "react-bootstrap";
+import CountUp from "react-countup";
 import classes from "./Aniguess.module.scss"
 
 function AniEntry({ children, className, entry }) {
@@ -109,7 +110,7 @@ export default function Aniguess({score, setScore, gameOver}) {
           <div className={classes["anicontent"]}>
             {reveal ?
               <div className={classes["anirating"]}>
-                <h1>Ranking: {secondEntry.score}</h1>
+                <h1>Ranking: {<CountUp start={0} end={secondEntry.score} decimals={2} duration={1.5}/>}</h1>
               </div>
               :
               <div className={classes["aniguess"]}>
@@ -120,7 +121,6 @@ export default function Aniguess({score, setScore, gameOver}) {
           </div>
         </AniEntry>
         : null}
-      
     </div>
   );
 }
