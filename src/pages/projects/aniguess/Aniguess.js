@@ -12,6 +12,7 @@ export default function Aniguess() {
   const [highScore, setHighScore] = useState(0);
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
+  const [SFW, setSFW] = useState(false);
   const options = useRef({"min_score": 0});
 
   function startGame() {
@@ -50,6 +51,18 @@ export default function Aniguess() {
               options.current["end_date"] = end_date
               setEndDate(date)
             }} />
+            <br /><br /><h3>NSFW</h3>
+            <label>
+              <input
+                type="checkbox"
+                checked={SFW}
+                onChange={() => {
+                  options.current["sfw"] = !SFW
+                  setSFW(!SFW)
+                }}
+              />
+              Exclude NSFW
+            </label>
           </div>
         </div>
       }
