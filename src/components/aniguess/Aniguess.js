@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "react-bootstrap";
 import CountUp from "react-countup";
+import { RotatingTriangles } from "react-loader-spinner";
 import classes from "./Aniguess.module.scss"
 
 function AniEntry({ children, className, entry }) {
@@ -31,42 +32,61 @@ function AniEntry({ children, className, entry }) {
   );
 }
 
-export default function Aniguess({score, setScore, gameOver}) {
-  const [entries, setEntries] = useState([])
+export default function Aniguess({score, setScore, gameOver, searchOptions}) {
   const [reveal, setReveal] = useState(false)
   const [round, setRound] = useState(0)
+  const [entries, setEntries] = useState([])
   const cachedEntries = useRef([])
-  const finishedCaching = useRef(false)
+  const finishedInit = useRef(false)
+  const lastVisiblePage = useRef(-1)
 
-  async function getRandomAniEntry() {
-    let json = {data: {}}
-
-    while(!json.data["score"]) {
-      const res = await fetch("https://api.jikan.moe/v4/random/anime")
-      json = await res.json()
-    }
-    
-    return json
+  function timeout(delay) {
+    return new Promise(res => setTimeout(res, delay));
   }
+
+  const getLastVisiblePage = useCallback(async () => {
+    searchOptions["page"] = 1;
+    const res = await fetch("https://api.jikan.moe/v4/anime?" + new URLSearchParams(searchOptions));
+    const json = await res.json();
+    return json.pagination.last_visible_page;
+  }, [searchOptions])
+
+  const getRandomAniEntry = useCallback(async () => {
+    searchOptions["page"] = 1 + Math.floor(lastVisiblePage.current * Math.random());
+    const res = await fetch("https://api.jikan.moe/v4/anime?" + new URLSearchParams(searchOptions));
+    const json = await res.json();
+    const itemCount = json.pagination.items.count;
+    const entry = json.data[Math.floor(itemCount * Math.random())];
+    return entry;
+  }, [searchOptions])
 
   useEffect(() => {
     async function fetchEntries() {
-      if(cachedEntries.current.length === 0 && !finishedCaching.current) {
-        finishedCaching.current = true;
-        cachedEntries.current = [await getRandomAniEntry(), await getRandomAniEntry()]
-      }
+      if(round === 0) return;
       setEntries(cachedEntries.current);
       cachedEntries.current = [cachedEntries.current[1], await getRandomAniEntry()]
     }
     fetchEntries()
-  }, [round]);
+  }, [round, getRandomAniEntry]);
+
+  useEffect(() => {
+    async function init() {
+      if(finishedInit.current) return;
+      finishedInit.current = true;
+      lastVisiblePage.current = await getLastVisiblePage();
+      cachedEntries.current = [await getRandomAniEntry(), await getRandomAniEntry()]
+      setEntries(cachedEntries.current);
+      await timeout(1000)
+      cachedEntries.current = [cachedEntries.current[1], await getRandomAniEntry()]
+    }
+    init()
+  }, [getLastVisiblePage, getRandomAniEntry]);
 
   function revealEntry(answer) {
-    const firstEntry = entries[0]?.data
-    const secondEntry = entries[1]?.data
+    const firstEntry = entries[0]
+    const secondEntry = entries[1]
 
-    if(!firstEntry || !secondEntry) return;
-    if(!firstEntry["score"] || !secondEntry["score"]) return;
+    if(!(firstEntry && secondEntry)) return;
 
     setReveal(true)
 
@@ -91,36 +111,45 @@ export default function Aniguess({score, setScore, gameOver}) {
     }, 2000);
   }
 
-  const firstEntry = entries[0]?.data
-  const secondEntry = entries[1]?.data
+  const firstEntry = entries[0]
+  const secondEntry = entries[1]
 
   return (
+    (firstEntry && secondEntry)
+    ?
     <div className={classes["aniguess"]}>
-      {firstEntry ?
-        <AniEntry entry={firstEntry} className={classes["left-panel"]}>
-          <div className={classes["anicontent"]}>
+      <AniEntry entry={firstEntry} className={classes["left-panel"]}>
+        <div className={classes["anicontent"]}>
+          <div className={classes["anirating"]}>
+            <h1>Ranking: {firstEntry.score}</h1>
+          </div>
+        </div>
+      </AniEntry>
+      <AniEntry entry={secondEntry} className={classes["right-panel"]}>
+        <div className={classes["anicontent"]}>
+          {reveal ?
             <div className={classes["anirating"]}>
-              <h1>Ranking: {firstEntry.score}</h1>
+              <h1>Ranking: {<CountUp start={0} end={secondEntry.score} decimals={2} duration={1.5}/>}</h1>
             </div>
-          </div>
-        </AniEntry>
-        : null}
-      {secondEntry ?
-        <AniEntry entry={secondEntry} className={classes["right-panel"]}>
-          <div className={classes["anicontent"]}>
-            {reveal ?
-              <div className={classes["anirating"]}>
-                <h1>Ranking: {<CountUp start={0} end={secondEntry.score} decimals={2} duration={1.5}/>}</h1>
-              </div>
-              :
-              <div className={classes["aniguess"]}>
-                <Button variant="primary" onClick={() => revealEntry("Higher")}>Higher</Button>
-                <Button variant="primary" onClick={() => revealEntry("Lower")}>Lower</Button>
-              </div>
-            }
-          </div>
-        </AniEntry>
-        : null}
+            :
+            <div className={classes["aniguess"]}>
+              <Button variant="primary" onClick={() => revealEntry("Higher")}>Higher</Button>
+              <Button variant="primary" onClick={() => revealEntry("Lower")}>Lower</Button>
+            </div>
+          }
+        </div>
+      </AniEntry>
+    </div>
+    : 
+    <div style={{"display": "grid", "justifyItems": "center", "alignItems": "center", "height": "100%"}}>
+      <RotatingTriangles
+        visible={true}
+        height="10%"
+        width="auto"
+        ariaLabel="rotating-triangels-loading"
+        wrapperStyle={{}}
+        wrapperClass="rotating-triangels-wrapper"
+      />
     </div>
   );
 }
