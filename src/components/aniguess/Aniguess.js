@@ -33,6 +33,7 @@ function AniEntry({ children, className, entry }) {
 }
 
 export default function Aniguess({score, setScore, gameOver, searchOptions}) {
+  console.log(searchOptions)
   const [reveal, setReveal] = useState(false)
   const [round, setRound] = useState(0)
   const [entries, setEntries] = useState([])
@@ -113,6 +114,7 @@ export default function Aniguess({score, setScore, gameOver, searchOptions}) {
 
   const firstEntry = entries[0]
   const secondEntry = entries[1]
+  console.log(firstEntry, secondEntry)
 
   return (
     (firstEntry && secondEntry)
@@ -141,13 +143,14 @@ export default function Aniguess({score, setScore, gameOver, searchOptions}) {
       </AniEntry>
     </div>
     : 
-    <div style={{"display": "grid", "justifyItems": "center", "alignItems": "center", "height": "100%"}}>
+    <div style={{"display": "grid", "placeItems": "center", "height": "100%"}}>
       <RotatingTriangles
         visible={true}
         height="10%"
         width="auto"
+        style={{"position": "fixed"}}
         ariaLabel="rotating-triangels-loading"
-        wrapperStyle={{}}
+        wrapperStyle={{"position": "fixed"}}
         wrapperClass="rotating-triangels-wrapper"
       />
     </div>
