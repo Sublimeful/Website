@@ -33,7 +33,6 @@ function AniEntry({ children, className, entry }) {
 }
 
 export default function Aniguess({score, setScore, gameOver, searchOptions}) {
-  console.log(searchOptions)
   const [reveal, setReveal] = useState(false)
   const [round, setRound] = useState(0)
   const [entries, setEntries] = useState([])
@@ -114,7 +113,6 @@ export default function Aniguess({score, setScore, gameOver, searchOptions}) {
 
   const firstEntry = entries[0]
   const secondEntry = entries[1]
-  console.log(firstEntry, secondEntry)
 
   return (
     (firstEntry && secondEntry)
