@@ -31,8 +31,8 @@ export default function Aniguess() {
         <>
           <Game score={score} setScore={setScore} gameOver={gameOver} searchOptions={options.current}/>
           <div className={classes["statusline"]}>
-            <h1>Score: {score}</h1>
-            <h1>HighScore: {highScore}</h1>
+            <h2>Score: {score}</h2>
+            <h2>HighScore: {highScore}</h2>
           </div>
         </>
         :
