@@ -21,7 +21,7 @@ function AniEntry({ children, className, entry }) {
           trailerEmbedUrl ? 
             <iframe
               title="trailer"
-              src={trailerEmbedUrl}>
+              src={trailerEmbedUrl.substr(0, trailerEmbedUrl.length - 1) + "0"}>
             </iframe> 
           :
             null
