@@ -60,8 +60,7 @@ export default function Aniguess() {
                   options.current["sfw"] = !SFW
                   setSFW(!SFW)
                 }}
-              />
-              Exclude NSFW
+              /> Exclude NSFW
             </label>
           </div>
         </div>
