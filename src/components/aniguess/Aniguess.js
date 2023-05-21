@@ -141,7 +141,7 @@ export default function Aniguess({score, setScore, gameOver, searchOptions}) {
       </AniEntry>
     </div>
     : 
-    <div style={{"display": "grid", "placeItems": "center", "height": "100%"}}>
+    <div style={{"display": "grid", "placeItems": "center", "height": "100vh"}}>
       <RotatingTriangles
         visible={true}
         height="10%"

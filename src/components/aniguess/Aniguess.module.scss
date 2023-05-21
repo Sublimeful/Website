@@ -1,6 +1,5 @@
 .aniguess {
   width: 100%;
-  height: 100%;
   display: grid;
   grid-template-areas: "left-panel right-panel";
   grid-template-columns: 1fr 1fr;
@@ -17,6 +16,7 @@
 
   .entry {
     padding: 1rem;
+    min-height: 100vh;
     display: grid;
     row-gap: 5%;
 
@@ -28,7 +28,7 @@
     "trailer"
     "content";
 
-    grid-template-rows: 7% 1fr 42.1875% 1fr;
+    grid-template-rows: 7% 12% 42.1875% auto;
 
     .anititle {
       grid-area: title;
@@ -55,7 +55,7 @@
       justify-items: center;
       height: fit-content;
       iframe {
-        width: 75%;
+        width: 80%;
         aspect-ratio: 16 / 9;
       }
     }
@@ -67,7 +67,8 @@
 
       .aniguess {
         display: flex;
-        width: 75%;
+        height: 100%;
+        width: 80%;
         flex-direction: column;
         row-gap: 1rem;
         button {

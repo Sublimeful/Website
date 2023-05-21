@@ -1,11 +1,11 @@
 .App {
   background-color: #282c34;
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   grid-template:
     "navbar"
     "page";
-  grid-template-rows: min-content auto;
+  grid-template-rows: min-content max-content;
   .page {
     grid-area: page;
   }
