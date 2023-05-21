@@ -32,10 +32,15 @@
   }
 
   .logo {
-    flex: 1 auto;
-    padding: 1rem;
     text-decoration: none;
     color: black;
+    width: 4rem;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    img {
+      height: 3rem;
+    }
   }
 
   .nav-links {

@@ -1,11 +1,12 @@
 import classes from "./NavBar.module.scss"
 import { NavLink } from "react-router-dom";
+import Logo from "logo.png";
 
 
 export default function NavBar() {
   return (
     <header className={classes["navbar"]}>
-      <a href="/" className={classes["logo"]}>Logo</a>
+      <a href="/" className={classes["logo"]}><img src={Logo}/></a>
       <nav className={classes["nav-links"]}>
         <ul>
           <li><NavLink to="/">Homepage</NavLink></li>
