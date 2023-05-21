@@ -18,7 +18,7 @@
   .entry {
     padding: 1rem;
     display: grid;
-    row-gap: 1rem;
+    row-gap: 5%;
 
     background-size: cover !important;
 
@@ -28,7 +28,7 @@
     "trailer"
     "content";
 
-    grid-template-rows: 7% 8rem 42.1875% 1fr;
+    grid-template-rows: 7% 1fr 42.1875% 1fr;
 
     .anititle {
       grid-area: title;
@@ -55,7 +55,7 @@
       justify-items: center;
       height: fit-content;
       iframe {
-        width: 70%;
+        width: 75%;
         aspect-ratio: 16 / 9;
       }
     }
